@@ -1,21 +1,27 @@
-**Cấu trúc thư mục
-merkle-tree-demo/
+**Cấu trúc thư mục**  
+```merkle-tree-demo/
 │
 ├── src/
-│   ├── buildTree.ts       # Sinh Merkle Root và Proofs từ whitelist
-│   ├── verifyProof.ts     # Kiểm chứng địa chỉ trong whitelist
-│   └── utils.ts           # Hàm tiện ích
+│ ├── buildTree.ts # Sinh Merkle Root và Proofs từ whitelist
+│ ├── verifyProof.ts # Kiểm chứng địa chỉ trong whitelist
+│ └── utils.ts # Hàm tiện ích
 │
-├── whitelist.json         # Danh sách địa chỉ whitelist
+├── whitelist.json # Danh sách địa chỉ whitelist
 ├── output/
-│   ├── merkleRoot.txt     # Merkle Root được sinh ra
-│   └── proofs.json        # Bằng chứng Merkle Proofs
+│ ├── merkleRoot.txt # Merkle Root được sinh ra
+│ └── proofs.json # Bằng chứng Merkle Proofs
 │
 ├── package.json
 ├── tsconfig.json
 └── README.md
-**Sinh Merkle Tree
+```
+---
+
+**Sinh Merkle Tree**  
 ```bash
 npx ts-node src/buildTree.ts
-**Kiểm chứng địa chỉ
+Kiểm chứng địa chỉ
+
+bash
+Copy code
 npx ts-node src/verifyProof.ts
