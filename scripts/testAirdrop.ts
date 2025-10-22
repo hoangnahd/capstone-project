@@ -26,8 +26,12 @@ async function main() {
   await txMint.wait();
   console.log("✅ Minted 15000 MMT to Airdrop contract");
 
-  console.log("Merkle Root in contract:", await airdrop.merkleRoot());
-  console.log("Merkle Root from script:", merkleRoot);
+  // console.log("\nTransferring ownership to Airdrop...");
+  // const tx = await token.transferOwnership(airdrop.getAddress());
+  // await tx.wait(); // Đợi transaction confirm
+
+  // console.log("Merkle Root in contract:", await airdrop.merkleRoot());
+  // console.log("Merkle Root from script:", merkleRoot);
 
   // 4️⃣ Test claim
   const [owner, user] = await ethers.getSigners();
@@ -46,8 +50,8 @@ async function main() {
   console.log("🧾 User proof:", userProof);
   console.log("🧾 User amount:", userProof.amount);
 
-  const airdropBalanceBefore = await token.balanceOf(airdrop.getAddress());
-  console.log("💰 Airdrop contract balance before claim:", formatEther(airdropBalanceBefore));
+  // const airdropBalanceBefore = await token.balanceOf(airdrop.getAddress());
+  // console.log("💰 Airdrop contract balance before claim:", formatEther(airdropBalanceBefore));
   const claimAmount = BigInt(userProof.amount); // đã là wei
 
   // Claim token (transfer từ airdrop contract)

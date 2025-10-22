@@ -37,7 +37,7 @@ contract MerkleAirdropMinter is Ownable, ReentrancyGuard {
         require(MerkleProof.verify(proof, merkleRoot, leaf), "Invalid proof");
 
         claimed[account] = true;
-        token.transfer(account, amount); // ✅ gửi token
+        token.transfer(msg.sender, amount); // ✅ gửi token
     }
 
 
