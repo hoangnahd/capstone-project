@@ -1,6 +1,9 @@
+require("hardhat-deploy");
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "dotenv/config";
+
+require("@openzeppelin/hardhat-upgrades");
 
 
 dotenv.config();
@@ -11,6 +14,11 @@ const ETHERSCAN_API = process.env.ETHERSCAN_API || "";
 const config = {
   solidity: {
     version: "0.8.28",
+    namedAccounts: {
+      deployer: {
+        default: 0, // tài khoản đầu tiên trong danh sách signers
+      },
+    },
     settings: {
       optimizer: {
         enabled: true,
