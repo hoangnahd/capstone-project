@@ -1,57 +1,104 @@
-# Sample Hardhat 3 Beta Project (`node:test` and `viem`)
+# Airdrop Smart Contract
 
-This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
+This project implements an **upgradable airdrop smart contract** on Ethereum-compatible networks using **Hardhat**.  
+It uses a **Merkle Tree-based whitelist** for secure token distribution and includes scripts for building, deploying, and testing the contract.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+---
 
-## Project Overview
-
-This example project includes:
-
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
-
-## Usage
-
-### Running Tests
-
-To run all the tests in the project, execute the following command:
-
-```shell
-npx hardhat test
+## 📁 Project Structure
+```
+.airzeppelin # OpenZeppelin project config
+contracts # Smart contracts source code
+deploy # Deployment scripts (upgradable contracts)
+deployments/sepolia # Deployment info for Sepolia network
+ignition/modules # Optional Hardhat Ignition modules
+output # Output folder for Merkle root and proofs
+scripts # Merkle tree and testing scripts
+test # Contract test files
+typechain-types # TypeScript types for contracts
 ```
 
-You can also selectively run the Solidity or `node:test` tests:
 
-```shell
-npx hardhat test solidity
-npx hardhat test nodejs
-```
+---
 
-### Make a deployment to Sepolia
+## Scripts Overview
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+### `scripts/merkleTree/`
+- **buildTree.ts** – Builds the Merkle Tree from whitelist addresses.  
+- **generateWhitelist.ts** – Generates a JSON whitelist of eligible addresses.  
+- **whitelist.json** – Contains whitelisted addresses for the airdrop.
 
-To run the deployment to a local chain:
+### Other Scripts
+- **test_airdrop.ts** – Tests the airdrop contract using generated Merkle proofs.
 
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
+---
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
+## Features
 
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
+- **Upgradable Airdrop Contract** — Uses OpenZeppelin Upgradeable Contracts.
+- **Merkle Tree Whitelist** — Efficient and private eligibility verification.
+- **Token Minting** — Distributes ERC20 tokens via the airdrop.
+- **Automated Deployment** — Hardhat deploy scripts for quick setup.
+- **Comprehensive Testing** — Validate airdrop logic and Merkle proofs.
 
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+---
 
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
+## Setup Instructions
 
-After setting the variable, you can run the deployment with the Sepolia network:
+1. **Clone the repository**
+   ```bash
+   git clone <repo-url>
+   cd <repo-folder>
+2. **Install dependencies**
+   ```bash
+   npm install
+3. **Create a .env file**
+   ```bash
+   TESTNET_PRIVATE_KEY=<your-private-key>
+   RPC_URL=<your-rpc-endpoint>
+   
+## Deployment
 
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+Deploy the upgradable airdrop contract:
+
+  ```bash
+  npx hardhat deploy
+  ```
+## Testing the Airdrop
+
+Navigate to the scripts folder and run the test script:
+  ```bash
+  cd scripts
+  npx ts-node test_airdrop.ts
+  ```
+
+This will:
+
+  Use whitelist.json and generated Merkle proofs
+
+  Simulate claiming tokens through the Airdrop contract
+
+  Verify Merkle proof validation and token minting
+
+## Output
+
+  The output/ folder contains:
+  
+  Merkle Root — Stored on-chain during deployment
+  
+  Proofs — Generated proofs for each whitelisted address
+  
+  These files are used in the test_airdrop.ts script for verification.
+
+## Notes
+
+  Ensure the whitelist.json file is generated before running deployment or test scripts.
+  
+  The contract is upgradable, allowing future upgrades without redeploying from scratch.
+  
+  Supports Sepolia or any other EVM-compatible testnet/mainnet.
+
+
+Would you like me to append this section into the full README so you can copy one complete, polished file?
+
+
