@@ -99,6 +99,4 @@ This will:
   Supports Sepolia or any other EVM-compatible testnet/mainnet.
 
 
-Would you like me to append this section into the full README so you can copy one complete, polished file?
-
 
